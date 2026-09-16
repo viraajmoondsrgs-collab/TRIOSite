@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trio | Future Computing</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -12,9 +13,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#06090d',
-                            card: '#0d1520',
-                            border: '#1b2a3a',
+                            dark: '#05080c',
+                            card: '#0a0f19',
+                            border: '#152232',
                             lime: '#5aec05',
                             neonGreen: '#39ff14',
                             neonTeal: '#06f0a2',
@@ -24,9 +25,9 @@
                         }
                     },
                     boxShadow: {
-                        'fluorescent-lime': '0 0 25px rgba(90, 236, 5, 0.35)',
-                        'fluorescent-cyan': '0 0 25px rgba(6, 200, 235, 0.35)',
-                        'fluorescent-purple': '0 0 25px rgba(176, 38, 255, 0.35)'
+                        'fluorescent-lime': '0 0 25px rgba(90, 236, 5, 0.4)',
+                        'fluorescent-cyan': '0 0 25px rgba(6, 200, 235, 0.4)',
+                        'fluorescent-purple': '0 0 25px rgba(176, 38, 255, 0.4)'
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif']
@@ -35,6 +36,7 @@
             }
         }
     </script>
+    <!-- Google Fonts & Font Awesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -47,46 +49,60 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #06090d;
+            background-color: #05080c;
             color: #f1f5f9;
             overflow-x: hidden;
         }
 
-        /* Diagonal top-right corner clipped cyber window frame */
+        /* 
+           PURE SINGLE-ELEMENT CYBER WINDOW
+           No pseudo-elements (::before / ::after), no extra triangles, no background overlays.
+        */
         .cyber-window {
-            background: rgba(13, 21, 32, 0.88);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 15, 25, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(6, 200, 235, 0.35);
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
             clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
-            border-bottom-left-radius: 1.25rem;
-            border-bottom-right-radius: 1.25rem;
-            position: relative;
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
 
-        .cyber-window::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, transparent 50%, rgba(6, 200, 235, 0.5) 50%);
-            pointer-events: none;
+        .cyber-window-lime {
+            border-color: rgba(90, 236, 5, 0.4);
         }
 
-        .cyber-window-lime::before {
-            background: linear-gradient(135deg, transparent 50%, rgba(90, 236, 5, 0.6) 50%);
+        .cyber-window-purple {
+            border-color: rgba(176, 38, 255, 0.4);
         }
 
-        .cyber-window-purple::before {
-            background: linear-gradient(135deg, transparent 50%, rgba(176, 38, 255, 0.6) 50%);
+        .cyber-window-cyan {
+            border-color: rgba(6, 200, 235, 0.4);
+        }
+
+        /* Hover elevation glows without pseudo-shapes */
+        .cyber-window:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(6, 200, 235, 0.2);
+            border-color: #06c8eb;
+        }
+
+        .cyber-window-lime:hover {
+            box-shadow: 0 8px 30px rgba(90, 236, 5, 0.25);
+            border-color: #5aec05;
+        }
+
+        .cyber-window-purple:hover {
+            box-shadow: 0 8px 30px rgba(176, 38, 255, 0.25);
+            border-color: #b026ff;
         }
 
         .glass-nav {
-            background: rgba(6, 9, 13, 0.92);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: rgba(5, 8, 12, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
@@ -98,26 +114,39 @@
         }
 
         .bg-grid-pattern {
-            background-size: 50px 50px;
+            background-size: 40px 40px;
             background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
         }
 
-        .glow-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(140px);
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 0;
+            opacity: 0.6;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body class="relative min-h-screen bg-grid-pattern selection:bg-brand-lime selection:text-black">
 
-    <div class="glow-orb w-[450px] h-[450px] bg-brand-cyan/15 top-10 left-[-120px]"></div>
-    <div class="glow-orb w-[550px] h-[550px] bg-brand-lime/10 top-[35%] right-[-150px]"></div>
-    <div class="glow-orb w-[400px] h-[400px] bg-brand-electricPurple/15 bottom-20 left-[25%]"></div>
+    <!-- Interactive Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
 
     <header class="fixed top-0 left-0 right-0 z-50 glass-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,10 +166,12 @@
                 </a>
 
                 <!-- Desktop Navigation Bar -->
-                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
                     <a href="#vision" class="hover:text-brand-lime transition-colors">Vision</a>
                     <a href="#products" class="hover:text-brand-lime transition-colors">Products & Bart</a>
                     <a href="#fluorescent" class="hover:text-brand-lime transition-colors">Fluorescent Design</a>
+                    <a href="#roadmap" class="hover:text-brand-lime transition-colors">Roadmap</a>
+                    <a href="#faq" class="hover:text-brand-lime transition-colors">FAQ</a>
                     <a href="#channels" class="hover:text-brand-lime transition-colors">Channels</a>
                 </nav>
 
@@ -168,6 +199,8 @@
             <a href="#vision" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Vision</a>
             <a href="#products" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Products & Bart</a>
             <a href="#fluorescent" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Fluorescent Design</a>
+            <a href="#roadmap" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Roadmap</a>
+            <a href="#faq" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">FAQ</a>
             <a href="#channels" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Channels</a>
             <a href="https://www.youtube.com/@TrioOfficial-real?sub_confirmation=1" 
                target="_blank" 
@@ -183,9 +216,9 @@
     <section id="vision" class="relative pt-36 pb-20 md:pt-48 md:pb-32 overflow-hidden scroll-mt-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full cyber-window border border-brand-cyan/30 text-xs font-mono text-slate-200 mb-8 animate-pulse">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full cyber-window cyber-window-cyan border border-brand-cyan/40 text-xs font-mono text-slate-200 mb-8 animate-pulse">
                 <span class="w-2 h-2 rounded-full bg-brand-lime"></span>
-                <span class="text-brand-cyan uppercase font-bold">Official Trio Site</span>
+                <span class="text-brand-cyan uppercase font-bold">Official Stealth Hub</span>
             </div>
 
             <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6 max-w-5xl mx-auto leading-tight">
@@ -205,13 +238,14 @@
                     <i class="fa-solid fa-arrow-down text-xs"></i>
                 </a>
                 <a href="#channels" 
-                   class="w-full sm:w-auto px-8 py-4 rounded-2xl cyber-window text-white font-bold text-sm hover:bg-slate-800/60 transition-all duration-300 flex items-center justify-center gap-2 border border-slate-700 hover:border-brand-cyan">
+                   class="w-full sm:w-auto px-8 py-4 rounded-2xl cyber-window border border-slate-700 text-white font-bold text-sm hover:bg-slate-800/60 transition-all duration-300 flex items-center justify-center gap-2">
                     <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
                     <span>Subscribe to Channels</span>
                 </a>
             </div>
 
-            <div class="mt-16 max-w-2xl mx-auto cyber-window p-6 border border-brand-neonTeal/40 text-left relative overflow-hidden">
+            <!-- Stealth Banner -->
+            <div class="mt-16 max-w-2xl mx-auto cyber-window cyber-window-lime p-6 border border-brand-neonTeal/40 text-left relative">
                 <div class="flex items-start gap-4">
                     <div class="w-10 h-10 rounded-xl bg-brand-neonTeal/20 text-brand-neonTeal flex items-center justify-center shrink-0 font-black text-lg">
                         <i class="fa-solid fa-rocket text-sm"></i>
@@ -241,7 +275,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <!-- TrioInstaller Card -->
-                <div class="cyber-window p-6 border border-brand-cyan/30 flex flex-col justify-between group hover:border-brand-cyan">
+                <div class="cyber-window cyber-window-cyan p-6 border border-brand-cyan/40 flex flex-col justify-between group reveal-on-scroll">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan group-hover:scale-110 group-hover:bg-brand-cyan group-hover:text-black transition-all">
@@ -260,7 +294,7 @@
                 </div>
 
                 <!-- TrioSound Card -->
-                <div class="cyber-window cyber-window-lime p-6 border border-brand-neonTeal/30 flex flex-col justify-between group hover:border-brand-neonTeal">
+                <div class="cyber-window cyber-window-lime p-6 border border-brand-neonTeal/40 flex flex-col justify-between group reveal-on-scroll">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-brand-neonTeal/10 border border-brand-neonTeal/30 flex items-center justify-center text-brand-neonTeal group-hover:scale-110 group-hover:bg-brand-neonTeal group-hover:text-black transition-all">
@@ -279,7 +313,7 @@
                 </div>
 
                 <!-- Undisclosed Ordering App Card -->
-                <div class="cyber-window cyber-window-lime p-6 border border-brand-lime/40 flex flex-col justify-between group hover:border-brand-lime">
+                <div class="cyber-window cyber-window-lime p-6 border border-brand-lime/40 flex flex-col justify-between group reveal-on-scroll">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-brand-lime/10 border border-brand-lime/30 flex items-center justify-center text-brand-lime group-hover:scale-110 group-hover:bg-brand-lime group-hover:text-black transition-all">
@@ -298,7 +332,7 @@
                 </div>
 
                 <!-- Bart Hardware Sub-brand Card -->
-                <div class="cyber-window cyber-window-purple p-6 border border-brand-electricPurple/30 flex flex-col justify-between group hover:border-brand-electricPurple">
+                <div class="cyber-window cyber-window-purple p-6 border border-brand-electricPurple/40 flex flex-col justify-between group reveal-on-scroll">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-brand-electricPurple/10 border border-brand-electricPurple/30 flex items-center justify-center text-brand-electricPurple group-hover:scale-110 group-hover:bg-brand-electricPurple group-hover:text-white transition-all">
@@ -319,7 +353,7 @@
             </div>
 
             <!-- Legal Backup Strategy Notice -->
-            <div class="mt-12 cyber-window p-6 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="mt-12 cyber-window cyber-window-lime p-6 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 reveal-on-scroll">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20 text-xl">
                         <i class="fa-solid fa-shield-halved"></i>
@@ -331,7 +365,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="shrink-0 font-mono text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-brand-lime border border-slate-700">
+                <div class="shrink-0 font-mono text-xs px-3 py-1.5 rounded-lg bg-slate-900 text-brand-lime border border-slate-800">
                     PROTECTION: ACTIVE
                 </div>
             </div>
@@ -341,63 +375,91 @@
 
     <section id="fluorescent" class="py-24 bg-brand-dark/90 relative z-10 border-y border-slate-800/80 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-brand-lime mb-3 block">Design System</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-                        Fluorescent <br>
-                        <span class="fluorescent-text">Design Language</span>
-                    </h2>
-                    <p class="text-slate-300 text-base leading-relaxed mb-6">
-                        We designed our very own design language called Fluorescent Design (similar to Material Design on Android). 
-                        It combines sleek cyberpunk vibes with diagonal top-right cut corners and friendly rounded edges.
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-lime mb-3 block">Design System</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Fluorescent <span class="fluorescent-text">Design Language</span>
+                </h2>
+                <p class="mt-4 text-slate-300 text-base">
+                    We designed our very own design language called Fluorescent Design (similar to Material Design on Android). 
+                    It combines sleek cyberpunk vibes with diagonal top-right cut corners and friendly rounded edges.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left: Interactive Design Controls -->
+                <div class="lg:col-span-5 cyber-window cyber-window-cyan p-6 border border-brand-cyan/40 space-y-6">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-brand-cyan"></i>
+                        <span>Live Design Sandbox</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">
+                        Test and customize Fluorescent UI parameters live. Adjust the cutout notch size, accent color glow, and shadow intensity below.
                     </p>
 
-                    <div class="space-y-4">
-                        <div class="cyber-window p-4 border border-brand-cyan/20 flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-cyan/20 text-brand-cyan flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-vector-square"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold text-sm">Diagonal Window Notch</h4>
-                                <p class="text-slate-400 text-xs">Futuristic top-right corner cutouts styled with high-contrast neon fluorescent glows.</p>
-                            </div>
+                    <!-- Notch Depth Slider -->
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-2">
+                            <span class="text-slate-300">Cutout Notch Depth:</span>
+                            <span id="notch-val" class="text-brand-cyan font-bold">24px</span>
                         </div>
+                        <input type="range" id="notch-slider" min="12" max="48" value="24" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-cyan">
+                    </div>
 
-                        <div class="cyber-window cyber-window-lime p-4 border border-brand-lime/20 flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-lime/20 text-brand-lime flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-face-smile"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold text-sm">Cyberpunk Meets Ergonomics</h4>
-                                <p class="text-slate-400 text-xs">Pairing high-tech cyberpunk aesthetics with comfortable, friendly UI geometry.</p>
-                            </div>
+                    <!-- Accent Color Selection -->
+                    <div>
+                        <span class="text-xs text-slate-300 font-mono block mb-2">Accent Theme:</span>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setSandboxTheme('lime')" class="px-3 py-2 rounded-xl bg-brand-lime/20 border border-brand-lime text-brand-lime text-xs font-bold hover:bg-brand-lime hover:text-black transition-all">
+                                Lime
+                            </button>
+                            <button onclick="setSandboxTheme('cyan')" class="px-3 py-2 rounded-xl bg-brand-cyan/20 border border-brand-cyan text-brand-cyan text-xs font-bold hover:bg-brand-cyan hover:text-black transition-all">
+                                Cyan
+                            </button>
+                            <button onclick="setSandboxTheme('purple')" class="px-3 py-2 rounded-xl bg-brand-electricPurple/20 border border-brand-electricPurple text-brand-electricPurple text-xs font-bold hover:bg-brand-electricPurple hover:text-white transition-all">
+                                Purple
+                            </button>
                         </div>
+                    </div>
+
+                    <!-- Copy CSS Tokens Action -->
+                    <div class="pt-2">
+                        <button onclick="copyCSSTokens()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-mono text-xs border border-slate-700 flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-regular fa-copy text-brand-lime"></i>
+                            <span id="copy-css-btn-text">Copy CSS Tokens</span>
+                        </button>
                     </div>
                 </div>
 
-                <div class="cyber-window p-8 border border-brand-neonTeal/30 relative">
-                    <div class="text-xs font-mono text-brand-neonTeal mb-6 flex items-center justify-between">
-                        <span>// FLUORESCENT_WINDOW_FRAME</span>
-                        <span class="px-2 py-0.5 rounded bg-brand-lime/20 text-brand-lime text-[10px]">T3 SPEC</span>
-                    </div>
-
-                    <div class="space-y-6">
-                        <div>
-                            <span class="text-xs text-slate-400 block mb-2 font-mono">Diagonal Window Notch Angle</span>
-                            <div class="cyber-window p-4 border border-brand-lime/40 bg-slate-900/60">
-                                <span class="text-xs text-brand-lime font-mono">clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)</span>
-                            </div>
+                <!-- Right: Preview Window Component -->
+                <div class="lg:col-span-7">
+                    <div id="sandbox-preview-card" class="cyber-window p-8 border border-brand-cyan/40 bg-slate-900/90 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
+                            <span class="text-xs font-mono text-brand-cyan" id="preview-tag">// FLUORESCENT_COMPONENT_PREVIEW</span>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-lime/20 text-brand-lime">ACTIVE</span>
                         </div>
 
-                        <div>
-                            <span class="text-xs text-slate-400 block mb-2 font-mono">Glow Accent Buttons</span>
-                            <div class="flex flex-wrap gap-3">
-                                <button class="px-5 py-2.5 rounded-xl bg-brand-lime text-black font-extrabold text-xs shadow-fluorescent-lime">
-                                    Lime Accent
+                        <div class="space-y-4">
+                            <h4 id="preview-heading" class="text-2xl font-black text-white">Fluorescent Window Frame</h4>
+                            <p class="text-slate-300 text-xs leading-relaxed">
+                                Experience how Fluorescent Design blends ergonomic curved borders with crisp cyberpunk diagonal corner cutouts.
+                            </p>
+
+                            <!-- Live Code Output Box -->
+                            <div class="bg-brand-dark/90 p-4 rounded-xl border border-slate-800 font-mono text-[11px] text-slate-300 space-y-1">
+                                <p class="text-slate-500">// Generated CSS Cutout Rule</p>
+                                <p id="css-code-output" class="text-brand-lime break-all">
+                                    clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+                                </p>
+                            </div>
+
+                            <div class="pt-2 flex flex-wrap gap-3">
+                                <button id="preview-btn-primary" class="px-5 py-2.5 rounded-xl bg-brand-lime text-black font-extrabold text-xs shadow-fluorescent-lime">
+                                    Primary Action
                                 </button>
-                                <button class="px-5 py-2.5 rounded-xl bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/40 font-bold text-xs shadow-fluorescent-cyan">
-                                    Cyber Cyan
+                                <button id="preview-btn-secondary" class="px-5 py-2.5 rounded-xl bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/40 font-bold text-xs shadow-fluorescent-cyan">
+                                    Secondary Action
                                 </button>
                             </div>
                         </div>
@@ -408,11 +470,155 @@
         </div>
     </section>
 
+    <section id="roadmap" class="py-24 relative z-10 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-cyan mb-3 block">Future Vision</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Development Roadmap</h2>
+                <p class="mt-4 text-slate-400 text-base">
+                    A glimpse into how Trio is progressing from stealth-mode research to software and hardware launches.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-8">
+                
+                <!-- Phase 1 -->
+                <div class="cyber-window cyber-window-lime p-6 border border-brand-lime/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 reveal-on-scroll">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-lime/20 text-brand-lime font-black text-xl flex items-center justify-center shrink-0 border border-brand-lime/40">
+                            01
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-brand-lime tracking-widest block">CURRENT PHASE</span>
+                            <h3 class="text-lg font-bold text-white">Stealth Research & Fluorescent Design System</h3>
+                            <p class="text-slate-400 text-xs mt-1">Refining core architectures, Fluorescent design guidelines, and secret backup legal strategies.</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-brand-lime/10 text-brand-lime border border-brand-lime/30 text-xs font-mono font-bold shrink-0">IN PROGRESS</span>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="cyber-window cyber-window-cyan p-6 border border-brand-cyan/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 reveal-on-scroll">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-cyan/20 text-brand-cyan font-black text-xl flex items-center justify-center shrink-0 border border-brand-cyan/40">
+                            02
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-brand-cyan tracking-widest block">NEXT UP</span>
+                            <h3 class="text-lg font-bold text-white">Software Ecosystem Alpha (TrioInstaller & TrioSound)</h3>
+                            <p class="text-slate-400 text-xs mt-1">First private testing builds for our system manager and innovative music streaming/creation app.</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-xs font-mono shrink-0">PLANNED</span>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="cyber-window cyber-window-purple p-6 border border-brand-electricPurple/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 reveal-on-scroll">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-electricPurple/20 text-brand-electricPurple font-black text-xl flex items-center justify-center shrink-0 border border-brand-electricPurple/40">
+                            03
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-brand-electricPurple tracking-widest block">HARDWARE SUB-BRAND</span>
+                            <h3 class="text-lg font-bold text-white">Bart Consumer Hardware Development</h3>
+                            <p class="text-slate-400 text-xs mt-1">Prototyping ultra-powerful consumer devices designed for high performance and everyday tasks.</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-xs font-mono shrink-0">CONCEPT</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-brand-dark/90 relative z-10 border-t border-slate-800/80 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-lime mb-3 block">Got Questions?</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Frequently Asked Questions</h2>
+                <p class="mt-4 text-slate-400 text-base">
+                    Everything you need to know about Trio, our software, Bart hardware sub-brand, and official channels.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-4">
+                
+                <!-- FAQ Item 1 -->
+                <div class="cyber-window cyber-window-cyan p-5 border border-slate-800">
+                    <button onclick="toggleFaq('faq-1')" class="w-full flex justify-between items-center text-left focus:outline-none">
+                        <span class="font-bold text-white text-sm md:text-base">Why are specific product details kept confidential?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-brand-cyan transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-1" class="hidden mt-3 pt-3 border-t border-slate-800/80 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        We operate in stealth mode because we are working on untinkered software domains with massive potential. Keeping details under wraps prevents premature copying before public launch!
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="cyber-window cyber-window-lime p-5 border border-slate-800">
+                    <button onclick="toggleFaq('faq-2')" class="w-full flex justify-between items-center text-left focus:outline-none">
+                        <span class="font-bold text-white text-sm md:text-base">What is Bart and how does it fit into Trio?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-brand-lime transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-2" class="hidden mt-3 pt-3 border-t border-slate-800/80 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        Bart is Trio's dedicated sub-brand focused on casual consumer hardware. While Trio creates software, Bart designs high-performance physical computing devices tailored for everyday user needs.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="cyber-window cyber-window-purple p-5 border border-slate-800">
+                    <button onclick="toggleFaq('faq-3')" class="w-full flex justify-between items-center text-left focus:outline-none">
+                        <span class="font-bold text-white text-sm md:text-base">Are you concerned about trademark or name conflicts?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-brand-electricPurple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-3" class="hidden mt-3 pt-3 border-t border-slate-800/80 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        We are a step ahead! We already have a backup legal name registered in stealth mode, keeping it confidential so no one can claim that name either.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="cyber-window cyber-window-cyan p-5 border border-slate-800">
+                    <button onclick="toggleFaq('faq-4')" class="w-full flex justify-between items-center text-left focus:outline-none">
+                        <span class="font-bold text-white text-sm md:text-base">What can you tell us about the undisclosed ordering app?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-brand-cyan transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-4" class="hidden mt-3 pt-3 border-t border-slate-800/80 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        It's an upcoming platform designed to automate and streamline ordering workflows for casual users and businesses alike. Further features will be revealed during beta testing!
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="cyber-window cyber-window-lime p-5 border border-slate-800">
+                    <button onclick="toggleFaq('faq-5')" class="w-full flex justify-between items-center text-left focus:outline-none">
+                        <span class="font-bold text-white text-sm md:text-base">How can I contact Trio or reach out for inquiries?</span>
+                        <i id="faq-icon-5" class="fa-solid fa-chevron-down text-brand-lime transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-5" class="hidden mt-3 pt-3 border-t border-slate-800/80 text-xs md:text-sm text-slate-300 leading-relaxed">
+                        You can email our official support address directly at <a href="mailto:trioofficial89@gmail.com" class="text-brand-lime underline font-mono font-bold">trioofficial89@gmail.com</a> for updates, inquiries, or feedback!
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Email Support CTA Box -->
+            <div class="mt-12 max-w-xl mx-auto text-center cyber-window cyber-window-lime p-6 border border-brand-lime/40">
+                <i class="fa-solid fa-envelope-open-text text-3xl text-brand-lime mb-3 block"></i>
+                <h4 class="text-white font-bold text-base mb-1">Direct Official Contact</h4>
+                <p class="text-slate-400 text-xs mb-4">Have questions or want to inquire about upcoming updates?</p>
+                <a href="mailto:trioofficial89@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-lime text-black font-bold text-xs uppercase tracking-wider hover:shadow-fluorescent-lime transition-all">
+                    <span>Email trioofficial89@gmail.com</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
     <section id="channels" class="py-24 relative z-10 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-lime mb-3">Community & Media</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Our YouTube Channels</p>
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-lime mb-3 block">Community & Media</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Our YouTube Channels</h2>
                 <p class="mt-4 text-slate-400 text-base">
                     Subscribe to stay updated with future Trio software releases, hardware prototypes, and dev vlogs!
                 </p>
@@ -421,7 +627,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 
                 <!-- Trio Official Channel -->
-                <div class="cyber-window p-8 border border-brand-neonTeal/40 flex flex-col justify-between hover:border-brand-neonTeal transition-all">
+                <div class="cyber-window cyber-window-cyan p-8 border border-brand-neonTeal/40 flex flex-col justify-between reveal-on-scroll">
                     <div>
                         <div class="flex items-center gap-4 mb-6">
                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-cyan to-brand-neonTeal p-0.5">
@@ -449,7 +655,7 @@
                 </div>
 
                 <!-- Viraaj Moond Channel -->
-                <div class="cyber-window cyber-window-lime p-8 border border-brand-lime/40 flex flex-col justify-between hover:border-brand-lime transition-all">
+                <div class="cyber-window cyber-window-lime p-8 border border-brand-lime/40 flex flex-col justify-between reveal-on-scroll">
                     <div>
                         <div class="flex items-center gap-4 mb-6">
                             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-lime to-brand-neonTeal p-0.5">
@@ -470,7 +676,7 @@
                        target="_blank" 
                        rel="noopener noreferrer" 
                        onclick="handleSubscribeClick('Viraaj Moond')"
-                       class="w-full py-3.5 rounded-xl cyber-window border border-brand-lime text-brand-lime hover:bg-brand-lime hover:text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                       class="w-full py-3.5 rounded-xl border border-brand-lime text-brand-lime hover:bg-brand-lime hover:text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
                         <i class="fa-brands fa-youtube text-lg"></i>
                         <span>Subscribe to Viraaj Moond</span>
                     </a>
@@ -490,15 +696,17 @@
                     <span class="text-lg font-bold text-white tracking-tight">Trio: Future Computing</span>
                 </div>
 
-                <div class="flex items-center gap-6 text-xs text-slate-400">
+                <div class="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-400">
                     <a href="#vision" class="hover:text-white transition">Vision</a>
                     <a href="#products" class="hover:text-white transition">Products & Bart</a>
                     <a href="#fluorescent" class="hover:text-white transition">Fluorescent Design</a>
+                    <a href="#roadmap" class="hover:text-white transition">Roadmap</a>
+                    <a href="#faq" class="hover:text-white transition">FAQ</a>
                     <a href="#channels" class="hover:text-white transition">Channels</a>
                 </div>
 
-                <div class="text-xs text-slate-500 font-mono">
-                    Trio Computing. We will update this website when we have more news about Trio!
+                <div class="text-xs text-slate-400 font-mono text-center md:text-right">
+                    Contact: <a href="mailto:trioofficial89@gmail.com" class="text-brand-lime hover:underline">trioofficial89@gmail.com</a>
                 </div>
             </div>
         </div>
@@ -506,7 +714,7 @@
 
     <!-- Subscription Toast Container -->
     <div id="subscribe-toast" class="fixed bottom-6 right-6 z-50 hidden transition-all duration-300 transform translate-y-4">
-        <div class="cyber-window border border-brand-lime text-white px-5 py-4 flex items-center gap-3 shadow-fluorescent-lime">
+        <div class="cyber-window cyber-window-lime border border-brand-lime text-white px-5 py-4 flex items-center gap-3 shadow-fluorescent-lime">
             <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white shrink-0">
                 <i class="fa-brands fa-youtube"></i>
             </div>
@@ -519,6 +727,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle logic
             const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
 
@@ -528,7 +737,6 @@
                 });
             }
 
-            // Close mobile menu on clicking mobile links
             const mobileLinks = document.querySelectorAll('.nav-link-mobile');
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
@@ -537,8 +745,155 @@
                     }
                 });
             });
+
+            // Initialize Background Canvas Particles
+            initCanvasParticles();
+
+            // Setup Live Sandbox Listeners
+            const notchSlider = document.getElementById('notch-slider');
+            if (notchSlider) {
+                notchSlider.addEventListener('input', (e) => {
+                    updateNotchDepth(e.target.value);
+                });
+            }
+
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
         });
 
+        // Background Particle Canvas
+        function initCanvasParticles() {
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = Array.from({ length: 45 }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 2 + 1,
+                color: ['#06c8eb', '#5aec05', '#b026ff'][Math.floor(Math.random() * 3)]
+            }));
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = 0.4;
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Live Design Sandbox logic
+        function updateNotchDepth(val) {
+            const valLabel = document.getElementById('notch-val');
+            const previewCard = document.getElementById('sandbox-preview-card');
+            const codeOutput = document.getElementById('css-code-output');
+
+            if (valLabel) valLabel.innerText = `${val}px`;
+            
+            const clipRule = `polygon(0 0, calc(100% - ${val}px) 0, 100% ${val}px, 100% 100%, 0 100%)`;
+            if (previewCard) previewCard.style.clipPath = clipRule;
+            if (codeOutput) codeOutput.innerText = `clip-path: ${clipRule};`;
+        }
+
+        function setSandboxTheme(color) {
+            const previewCard = document.getElementById('sandbox-preview-card');
+            const heading = document.getElementById('preview-heading');
+            const primaryBtn = document.getElementById('preview-btn-primary');
+            const secondaryBtn = document.getElementById('preview-btn-secondary');
+
+            if (!previewCard) return;
+
+            if (color === 'lime') {
+                previewCard.style.borderColor = '#5aec05';
+                if (primaryBtn) {
+                    primaryBtn.className = 'px-5 py-2.5 rounded-xl bg-brand-lime text-black font-extrabold text-xs shadow-fluorescent-lime';
+                }
+            } else if (color === 'cyan') {
+                previewCard.style.borderColor = '#06c8eb';
+                if (primaryBtn) {
+                    primaryBtn.className = 'px-5 py-2.5 rounded-xl bg-brand-cyan text-black font-extrabold text-xs shadow-fluorescent-cyan';
+                }
+            } else if (color === 'purple') {
+                previewCard.style.borderColor = '#b026ff';
+                if (primaryBtn) {
+                    primaryBtn.className = 'px-5 py-2.5 rounded-xl bg-brand-electricPurple text-white font-extrabold text-xs shadow-fluorescent-purple';
+                }
+            }
+        }
+
+        function copyCSSTokens() {
+            const codeOutput = document.getElementById('css-code-output');
+            const btnText = document.getElementById('copy-css-btn-text');
+            
+            if (codeOutput) {
+                const textToCopy = `.fluorescent-window {\n  background: rgba(10, 15, 25, 0.88);\n  ${codeOutput.innerText}\n  border: 1px solid #06c8eb;\n}`;
+                
+                // Copy to clipboard
+                const el = document.createElement('textarea');
+                el.value = textToCopy;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+
+                if (btnText) {
+                    btnText.innerText = 'Copied to Clipboard!';
+                    setTimeout(() => {
+                        btnText.innerText = 'Copy CSS Tokens';
+                    }, 2500);
+                }
+            }
+        }
+
+        // Accordion Toggle function
+        function toggleFaq(id) {
+            const content = document.getElementById(id);
+            const iconId = id.replace('faq-', 'faq-icon-');
+            const icon = document.getElementById(iconId);
+
+            if (content) {
+                content.classList.toggle('hidden');
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
+            }
+        }
+
+        // Subscribe Toast Notification
         function handleSubscribeClick(channelName) {
             const toast = document.getElementById('subscribe-toast');
             const channelText = document.getElementById('toast-channel-name');
