@@ -1,26 +1,558 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="dark scroll-smooth">
 <head>
-    <title>
-        Trio: Future Computing
-    </title>
-</head>
-<body style="background: linear-gradient(56deg, #5aec05, #06f0a2) fixed; min-height: 100vh; margin:0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-    <h1 style="text-shadow: 0 0 10px #06c8eb, 0 0 20px #88e90a;">This is the Trio Site!</h1>
-    <p style="text-shadow: 0 0 10px #06c8eb, 0 0 20px #88e90a; text-align: center;">The Trio Site (this) is just a site that explains (kinda) about trio! <br>
-    Its like a software company thing, that we will make in the future. We can't tell what it is because other people will copy us.<br>
-    So this is the website state that it will stay in, possibly for a long time.<br><br><br>SIKE!<br>
-    What this will be is a website that will show off our products, and maybe have a blog or something. We will see!<br><br><br>
-    The products we will make will be some software, but not hardware. This is because the area where we are working on is one that is not tinkered
-    around with as much right now, and we think that it has potential. They will be TrioInstaller, which is a software which will help you to manage
-    something (the thing is something we can't tell yet or it will reveal everything). Ok fine, there will be some hardware, but it will be a seperate part
-    called Bart, which will make, probably something like the thing you are reading this on, but it will be WAYY more powerful. There will also be TrioSound,
-    which will be a software that helps you to stream music, and make music! We are planning something innovative for the music making part. Now, many of you
-    may be screaming,"BUT YOUR NAME WILL HAVE LEGAL ISSUES!!", and you are right, but we are a step ahead of you and already have a backup name, which we can't tell
-    you because then other people will take that name, and then we will have to change again. We also have designed a design language (like Material Design on Android)
-    called Fluroscent Design, which is a design language that combines cyberpunk feels, with traditional friendly design (rounded corners etc.). Now, my real Youtube channel is-
-    https://www.youtube.com/@viraajmoond6326, and the official Trio channel is-https://www.youtube.com/@TrioOfficial-real, which currently does not have any videos, but we will upload sometime.
-    Please Subscribe to both channels. So this is all for now, but we will update this website when we have more news about Trio!<br><br><br></p>
-</body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trio | Future Computing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#06090d',
+                            card: '#0d1520',
+                            border: '#1b2a3a',
+                            lime: '#5aec05',
+                            neonGreen: '#39ff14',
+                            neonTeal: '#06f0a2',
+                            cyan: '#06c8eb',
+                            electricPurple: '#b026ff',
+                            textMuted: '#94a3b8'
+                        }
+                    },
+                    boxShadow: {
+                        'fluorescent-lime': '0 0 25px rgba(90, 236, 5, 0.35)',
+                        'fluorescent-cyan': '0 0 25px rgba(6, 200, 235, 0.35)',
+                        'fluorescent-purple': '0 0 25px rgba(176, 38, 255, 0.35)'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #06090d;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        /* Diagonal top-right corner clipped cyber window frame */
+        .cyber-window {
+            background: rgba(13, 21, 32, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+            border-bottom-left-radius: 1.25rem;
+            border-bottom-right-radius: 1.25rem;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cyber-window::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, transparent 50%, rgba(6, 200, 235, 0.5) 50%);
+            pointer-events: none;
+        }
+
+        .cyber-window-lime::before {
+            background: linear-gradient(135deg, transparent 50%, rgba(90, 236, 5, 0.6) 50%);
+        }
+
+        .cyber-window-purple::before {
+            background: linear-gradient(135deg, transparent 50%, rgba(176, 38, 255, 0.6) 50%);
+        }
+
+        .glass-nav {
+            background: rgba(6, 9, 13, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .fluorescent-text {
+            background: linear-gradient(135deg, #06c8eb 0%, #06f0a2 40%, #5aec05 80%, #b026ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bg-grid-pattern {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen bg-grid-pattern selection:bg-brand-lime selection:text-black">
+
+    <div class="glow-orb w-[450px] h-[450px] bg-brand-cyan/15 top-10 left-[-120px]"></div>
+    <div class="glow-orb w-[550px] h-[550px] bg-brand-lime/10 top-[35%] right-[-150px]"></div>
+    <div class="glow-orb w-[400px] h-[400px] bg-brand-electricPurple/15 bottom-20 left-[25%]"></div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#vision" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan via-brand-neonTeal to-brand-lime p-[1px] transition-transform duration-300 group-hover:scale-105">
+                        <div class="w-full h-full bg-brand-dark rounded-[11px] flex items-center justify-center">
+                            <span class="font-black text-xl text-white tracking-tighter">T<span class="text-brand-lime">3</span></span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-brand-neonTeal transition-colors flex items-center gap-2">
+                            TRIO <span class="text-[10px] px-2 py-0.5 rounded-full bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30 uppercase font-mono tracking-wider">Future Computing</span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Bar -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                    <a href="#vision" class="hover:text-brand-lime transition-colors">Vision</a>
+                    <a href="#products" class="hover:text-brand-lime transition-colors">Products & Bart</a>
+                    <a href="#fluorescent" class="hover:text-brand-lime transition-colors">Fluorescent Design</a>
+                    <a href="#channels" class="hover:text-brand-lime transition-colors">Channels</a>
+                </nav>
+
+                <!-- Subscribe Header CTA -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="https://www.youtube.com/@TrioOfficial-real?sub_confirmation=1" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       onclick="handleSubscribeClick('Trio Official')"
+                       class="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-brand-cyan via-brand-neonTeal to-brand-lime hover:shadow-fluorescent-lime transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-brands fa-youtube text-sm"></i>
+                        <span>Subscribe</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Navigation Toggle -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2 focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark/95 border-b border-brand-border px-6 py-6 space-y-4">
+            <a href="#vision" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Vision</a>
+            <a href="#products" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Products & Bart</a>
+            <a href="#fluorescent" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Fluorescent Design</a>
+            <a href="#channels" class="block text-slate-200 hover:text-brand-lime font-medium py-1 nav-link-mobile">Channels</a>
+            <a href="https://www.youtube.com/@TrioOfficial-real?sub_confirmation=1" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               onclick="handleSubscribeClick('Trio Official')"
+               class="inline-flex items-center justify-center gap-2 w-full text-center px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-black bg-brand-lime">
+                <i class="fa-brands fa-youtube text-sm"></i>
+                <span>Subscribe on YouTube</span>
+            </a>
+        </div>
+    </header>
+
+    <section id="vision" class="relative pt-36 pb-20 md:pt-48 md:pb-32 overflow-hidden scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full cyber-window border border-brand-cyan/30 text-xs font-mono text-slate-200 mb-8 animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-brand-lime"></span>
+                <span class="text-brand-cyan uppercase font-bold">Official Trio Site</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6 max-w-5xl mx-auto leading-tight">
+                This is the <br class="hidden sm:inline">
+                <span class="fluorescent-text">Trio Site!</span>
+            </h1>
+
+            <p class="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
+                The Trio Site is a platform that explains about Trio! It’s a software company we are building for the future. 
+                We keep specific details under wraps so others won’t copy us, but this website showcases our software, upcoming products, hardware sub-brand, and updates!
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+                <a href="#products" 
+                   class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-brand-lime text-black font-extrabold text-sm tracking-wider uppercase hover:shadow-fluorescent-lime transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <span>Explore Products</span>
+                    <i class="fa-solid fa-arrow-down text-xs"></i>
+                </a>
+                <a href="#channels" 
+                   class="w-full sm:w-auto px-8 py-4 rounded-2xl cyber-window text-white font-bold text-sm hover:bg-slate-800/60 transition-all duration-300 flex items-center justify-center gap-2 border border-slate-700 hover:border-brand-cyan">
+                    <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
+                    <span>Subscribe to Channels</span>
+                </a>
+            </div>
+
+            <div class="mt-16 max-w-2xl mx-auto cyber-window p-6 border border-brand-neonTeal/40 text-left relative overflow-hidden">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-brand-neonTeal/20 text-brand-neonTeal flex items-center justify-center shrink-0 font-black text-lg">
+                        <i class="fa-solid fa-rocket text-sm"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm mb-1">Building Future Software and Consumer Hardware</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            We are actively developing software in areas that are currently untinkered with and full of potential, alongside our Bart casual consumer hardware line.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="products" class="py-24 relative z-10 border-t border-slate-800/60 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-cyan mb-3">Our Ecosystem</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Software, Ordering Tech & Consumer Hardware</p>
+                <p class="mt-4 text-slate-400 text-base">
+                    We focus on unexplored software domains alongside dedicated consumer hardware under our specialized sub-brand.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- TrioInstaller Card -->
+                <div class="cyber-window p-6 border border-brand-cyan/30 flex flex-col justify-between group hover:border-brand-cyan">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan group-hover:scale-110 group-hover:bg-brand-cyan group-hover:text-black transition-all">
+                                <i class="fa-solid fa-download text-xl"></i>
+                            </div>
+                            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30">STEALTH</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-cyan transition-colors">TrioInstaller</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            A specialized software tool designed to help you manage key digital components. Core features remain confidential to protect our ideas.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800/80 pt-3 text-[11px] text-slate-400">
+                        <span class="text-brand-lime font-semibold">Focus:</span> System Management
+                    </div>
+                </div>
+
+                <!-- TrioSound Card -->
+                <div class="cyber-window cyber-window-lime p-6 border border-brand-neonTeal/30 flex flex-col justify-between group hover:border-brand-neonTeal">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-neonTeal/10 border border-brand-neonTeal/30 flex items-center justify-center text-brand-neonTeal group-hover:scale-110 group-hover:bg-brand-neonTeal group-hover:text-black transition-all">
+                                <i class="fa-solid fa-music text-xl"></i>
+                            </div>
+                            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-brand-neonTeal/20 text-brand-neonTeal border border-brand-neonTeal/30">AUDIO</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-neonTeal transition-colors">TrioSound</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            Software designed to stream music AND make music! Features ground-breaking innovations planned specifically for music production.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800/80 pt-3 text-[11px] text-slate-400">
+                        <span class="text-brand-lime font-semibold">Features:</span> Streaming + Creation
+                    </div>
+                </div>
+
+                <!-- Undisclosed Ordering App Card -->
+                <div class="cyber-window cyber-window-lime p-6 border border-brand-lime/40 flex flex-col justify-between group hover:border-brand-lime">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-lime/10 border border-brand-lime/30 flex items-center justify-center text-brand-lime group-hover:scale-110 group-hover:bg-brand-lime group-hover:text-black transition-all">
+                                <i class="fa-solid fa-utensils text-xl"></i>
+                            </div>
+                            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-brand-lime/20 text-brand-lime border border-brand-lime/30">CONFIDENTIAL</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-lime transition-colors">[Undisclosed App]</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            A next-generation ordering platform built with advanced automated features to streamline casual and high-volume ordering experiences.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800/80 pt-3 text-[11px] text-slate-400">
+                        <span class="text-brand-lime font-semibold">Type:</span> Advanced Ordering App
+                    </div>
+                </div>
+
+                <!-- Bart Hardware Sub-brand Card -->
+                <div class="cyber-window cyber-window-purple p-6 border border-brand-electricPurple/30 flex flex-col justify-between group hover:border-brand-electricPurple">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-electricPurple/10 border border-brand-electricPurple/30 flex items-center justify-center text-brand-electricPurple group-hover:scale-110 group-hover:bg-brand-electricPurple group-hover:text-white transition-all">
+                                <i class="fa-solid fa-laptop text-xl"></i>
+                            </div>
+                            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-brand-electricPurple/20 text-brand-electricPurple border border-brand-electricPurple/30">HARDWARE</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-electricPurple transition-colors">Bart</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            Trio's sub-brand for casual consumer hardware. Bart will build consumer devices like the one you're reading this on right now—but WAY more powerful!
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800/80 pt-3 text-[11px] text-slate-400">
+                        <span class="text-brand-electricPurple font-semibold">Sub-brand:</span> Consumer Hardware
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Legal Backup Strategy Notice -->
+            <div class="mt-12 cyber-window p-6 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20 text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm">Legal & Naming Strategy</h4>
+                        <p class="text-slate-400 text-xs mt-1">
+                            Thinking we'll have legal issues with our name? We're a step ahead! We already have a backup name ready—keeping it secret so nobody takes that name either!
+                        </p>
+                    </div>
+                </div>
+                <div class="shrink-0 font-mono text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-brand-lime border border-slate-700">
+                    PROTECTION: ACTIVE
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="fluorescent" class="py-24 bg-brand-dark/90 relative z-10 border-y border-slate-800/80 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-lime mb-3 block">Design System</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                        Fluorescent <br>
+                        <span class="fluorescent-text">Design Language</span>
+                    </h2>
+                    <p class="text-slate-300 text-base leading-relaxed mb-6">
+                        We designed our very own design language called Fluorescent Design (similar to Material Design on Android). 
+                        It combines sleek cyberpunk vibes with diagonal top-right cut corners and friendly rounded edges.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="cyber-window p-4 border border-brand-cyan/20 flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-cyan/20 text-brand-cyan flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-vector-square"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Diagonal Window Notch</h4>
+                                <p class="text-slate-400 text-xs">Futuristic top-right corner cutouts styled with high-contrast neon fluorescent glows.</p>
+                            </div>
+                        </div>
+
+                        <div class="cyber-window cyber-window-lime p-4 border border-brand-lime/20 flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-lime/20 text-brand-lime flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-face-smile"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Cyberpunk Meets Ergonomics</h4>
+                                <p class="text-slate-400 text-xs">Pairing high-tech cyberpunk aesthetics with comfortable, friendly UI geometry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cyber-window p-8 border border-brand-neonTeal/30 relative">
+                    <div class="text-xs font-mono text-brand-neonTeal mb-6 flex items-center justify-between">
+                        <span>// FLUORESCENT_WINDOW_FRAME</span>
+                        <span class="px-2 py-0.5 rounded bg-brand-lime/20 text-brand-lime text-[10px]">T3 SPEC</span>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-xs text-slate-400 block mb-2 font-mono">Diagonal Window Notch Angle</span>
+                            <div class="cyber-window p-4 border border-brand-lime/40 bg-slate-900/60">
+                                <span class="text-xs text-brand-lime font-mono">clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="text-xs text-slate-400 block mb-2 font-mono">Glow Accent Buttons</span>
+                            <div class="flex flex-wrap gap-3">
+                                <button class="px-5 py-2.5 rounded-xl bg-brand-lime text-black font-extrabold text-xs shadow-fluorescent-lime">
+                                    Lime Accent
+                                </button>
+                                <button class="px-5 py-2.5 rounded-xl bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/40 font-bold text-xs shadow-fluorescent-cyan">
+                                    Cyber Cyan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="channels" class="py-24 relative z-10 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-lime mb-3">Community & Media</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Our YouTube Channels</p>
+                <p class="mt-4 text-slate-400 text-base">
+                    Subscribe to stay updated with future Trio software releases, hardware prototypes, and dev vlogs!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Trio Official Channel -->
+                <div class="cyber-window p-8 border border-brand-neonTeal/40 flex flex-col justify-between hover:border-brand-neonTeal transition-all">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-cyan to-brand-neonTeal p-0.5">
+                                <div class="w-full h-full bg-brand-dark rounded-[14px] flex items-center justify-center text-red-500">
+                                    <i class="fa-brands fa-youtube text-3xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Trio Official Channel</h3>
+                                <p class="text-xs text-brand-neonTeal font-mono">@TrioOfficial-real</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            The official Trio channel! We currently don't have videos up yet, but we will upload updates sometime. Please subscribe!
+                        </p>
+                    </div>
+                    <a href="https://www.youtube.com/@TrioOfficial-real?sub_confirmation=1" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       onclick="handleSubscribeClick('Trio Official')"
+                       class="w-full py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-red-600/40">
+                        <i class="fa-brands fa-youtube text-lg"></i>
+                        <span>Subscribe to Trio Official</span>
+                    </a>
+                </div>
+
+                <!-- Viraaj Moond Channel -->
+                <div class="cyber-window cyber-window-lime p-8 border border-brand-lime/40 flex flex-col justify-between hover:border-brand-lime transition-all">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-lime to-brand-neonTeal p-0.5">
+                                <div class="w-full h-full bg-brand-dark rounded-[14px] flex items-center justify-center text-brand-lime">
+                                    <i class="fa-solid fa-user text-2xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Viraaj Moond</h3>
+                                <p class="text-xs text-brand-lime font-mono">@viraajmoond6326</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            My personal YouTube channel! Subscribe here to follow along with dev insights and personal projects.
+                        </p>
+                    </div>
+                    <a href="https://www.youtube.com/@viraajmoond6326?sub_confirmation=1" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       onclick="handleSubscribeClick('Viraaj Moond')"
+                       class="w-full py-3.5 rounded-xl cyber-window border border-brand-lime text-brand-lime hover:bg-brand-lime hover:text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-brands fa-youtube text-lg"></i>
+                        <span>Subscribe to Viraaj Moond</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800/80 bg-brand-dark relative z-10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-lime flex items-center justify-center text-black font-black text-sm">
+                        T3
+                    </div>
+                    <span class="text-lg font-bold text-white tracking-tight">Trio: Future Computing</span>
+                </div>
+
+                <div class="flex items-center gap-6 text-xs text-slate-400">
+                    <a href="#vision" class="hover:text-white transition">Vision</a>
+                    <a href="#products" class="hover:text-white transition">Products & Bart</a>
+                    <a href="#fluorescent" class="hover:text-white transition">Fluorescent Design</a>
+                    <a href="#channels" class="hover:text-white transition">Channels</a>
+                </div>
+
+                <div class="text-xs text-slate-500 font-mono">
+                    Trio Computing. We will update this website when we have more news about Trio!
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Subscription Toast Container -->
+    <div id="subscribe-toast" class="fixed bottom-6 right-6 z-50 hidden transition-all duration-300 transform translate-y-4">
+        <div class="cyber-window border border-brand-lime text-white px-5 py-4 flex items-center gap-3 shadow-fluorescent-lime">
+            <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white shrink-0">
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+            <div>
+                <h5 class="text-xs font-bold text-white">Opening YouTube Channel...</h5>
+                <p id="toast-channel-name" class="text-[11px] text-brand-lime font-mono">Redirecting to subscription page</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Close mobile menu on clicking mobile links
+            const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        function handleSubscribeClick(channelName) {
+            const toast = document.getElementById('subscribe-toast');
+            const channelText = document.getElementById('toast-channel-name');
+            if (toast && channelText) {
+                channelText.innerText = `Redirecting to ${channelName}...`;
+                toast.classList.remove('hidden', 'translate-y-4');
+                toast.classList.add('translate-y-0');
+
+                setTimeout(() => {
+                    toast.classList.add('translate-y-4');
+                    setTimeout(() => toast.classList.add('hidden'), 300);
+                }, 3500);
+            }
+        }
+    </script>
+</body>
 </html>
